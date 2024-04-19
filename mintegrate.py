@@ -5,12 +5,6 @@ import numpy as np
 
 def mintegrate(x, y, method = 'midpoint', lwr = float('nan'), upr = float('nan'), ylwr = 0, value = 'all'):
 
-    if not (isinstance(x, np.ndarray)):
-        x = x.to_numpy()
-
-    if not (isinstance(y, np.ndarray)):
-        y = y.to_numpy()
-
     if lwr != lwr:
         lwr = min(x)
     if upr != upr:
@@ -19,14 +13,14 @@ def mintegrate(x, y, method = 'midpoint', lwr = float('nan'), upr = float('nan')
     method = method[0]
 
     if (method == 'l'): 
-        aaa = np.cumsum(y * np.diff(np.insert(x, 0, lwr)))
+        aaa = np.cumsum(y * np.diff(np.append(lwr, x)))
     elif (method == 'r'): 
         aaa = np.cumsum(y * np.diff(np.append(x, upr)))
     elif (method == 'm' or method == 't'):
-        aaa = np.cumsum(np.insert(y[:(len(y) - 1)] * np.diff(x), 0, 0) / 2 + y * np.diff(np.insert(x, 0, lwr)) / 2) 
+        aaa = np.cumsum(np.append(0, y[:(len(y) - 1)] * np.diff(x)) / 2 + y * np.diff(np.append(lwr, x)) / 2) 
     elif (method == 't'):
-        x = np.insert(x, 0, lwr)
-        y = np.insert(y, 0, ylwr)
+        x = np.append(lwr, x)
+        y = np.append(ylwr, y)
         aaa = np.cumsum((y[:(len(x) - 1)] + np.diff(y) / 2) * np.diff(x)) 
     else:
         sys.exit('The "method" argument is not recognized.')
