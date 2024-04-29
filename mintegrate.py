@@ -3,12 +3,15 @@
 
 import numpy as np
 
-def mintegrate(x, y, method = 'midpoint', lwr = float('nan'), upr = float('nan'), ylwr = 0, value = 'all'):
+def mintegrate(x, y, method = 'trapezoid', lwr = float('nan'), upr = float('nan'), ylwr = -99, value = 'all'):
 
     if lwr != lwr:
         lwr = min(x)
     if upr != upr:
         upr = max(x)
+
+    if ylwr == -99:
+        ylwr = y[0]
 
     method = method[0]
 
@@ -16,7 +19,7 @@ def mintegrate(x, y, method = 'midpoint', lwr = float('nan'), upr = float('nan')
         aaa = np.cumsum(y * np.diff(np.append(lwr, x)))
     elif (method == 'r'): 
         aaa = np.cumsum(y * np.diff(np.append(x, upr)))
-    elif (method == 'm' or method == 't'):
+    elif (method == 'm'):
         aaa = np.cumsum(np.append(0, y[:(len(y) - 1)] * np.diff(x)) / 2 + y * np.diff(np.append(lwr, x)) / 2) 
     elif (method == 't'):
         x = np.append(lwr, x)

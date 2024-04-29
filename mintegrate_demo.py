@@ -5,8 +5,9 @@ import pandas as pd
 
 from mintegrate import mintegrate
 
-#dat = pd.DataFrame({'time': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 'rate': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]})
-dat = pd.DataFrame({'time': range(1, 11), 'rate': range(1, 11)})
+dat = pd.DataFrame({'time': [1, 2, 3, 4], 'rate': [1, 0, 1, 2]})
+
+mintegrate(x = dat['time'], y = dat['rate'], method = 't', lwr = 0, ylwr = 1)
 
 mintegrate(x = dat['time'], y = dat['rate'], method = 'm')
 mintegrate(x = dat['time'], y = dat['rate'], method = 't')
@@ -14,7 +15,6 @@ mintegrate(x = dat['time'], y = dat['rate'], method = 'l')
 mintegrate(x = dat['time'], y = dat['rate'], method = 'r')
 
 mintegrate(x = dat['time'], y = dat['rate'], method = 'm', lwr = 0)
-mintegrate(x = dat['time'], y = dat['rate'], method = 't', lwr = 0)
 mintegrate(x = dat['time'], y = dat['rate'], method = 'l', lwr = 0)
 mintegrate(x = dat['time'], y = dat['rate'], method = 'r', lwr = 0)
 
